@@ -8,7 +8,7 @@ import os
 def DownloadVideosFromTitles(los):
 	ids = []
 	for index, item in enumerate(los):
-		vid_id = ScrapeVidId(item)
+		vid_id = ScrapeVidId(index, item)
 		ids += [vid_id]
 	print("Downloading songs")
 	DownloadVideosFromIds(ids)
@@ -32,8 +32,8 @@ def DownloadVideosFromIds(lov):
 	with yt_dlp.YoutubeDL(ydl_opts) as ydl:
 	    ydl.download(lov)
 
-def ScrapeVidId(query):
-	print ("Getting video id for: ", query)
+def ScrapeVidId(idx, query):
+	print (f"{idx+1}. Getting video id for: {query}")
 	BASIC="http://www.youtube.com/results?search_query="
 	URL = (BASIC + query)
 	URL.replace(" ", "+")
