@@ -17,8 +17,8 @@ def login():
   print(auth_url)
   return redirect(auth_url)
 
-@app.route('/autherise')
-def autherise():
+@app.route('/authorize')
+def authorize():
   spotify_oauth = createOauth()
   session.clear()
   code = request.args.get('code')
@@ -49,6 +49,7 @@ def get_tracks():
       track = item['track']
       val = track['name'] + " - " + track['artists'][0]['name']
       results += [val]
+
     if (len(currGroup) < 50):
       break
 
@@ -84,6 +85,6 @@ def createOauth():
   return SpotifyOAuth(
     client_id="CLIENT_ID",
     client_secret="CLIENT_SECRET",
-    redirect_uri=url_for('REDIRECTION', _external=True),
-    scope="reading_user_lib"
+    redirect_uri=url_for('authorize', _external=True),
+    scope="user-library-read"
   )
